@@ -1,0 +1,10 @@
+<odoo>
+
+    <record id='fleet_gps_geofence_action' model='ir.actions.act_window'>
+        <field name="name">GeoFence</field>
+        <field name="res_model">gps_geofence</field>
+    </record>
+    <menuitem action="fleet_gps_geofence_action" parent="gpsmap.gpsmap_configuration" id="fleet_gps_geofence_menu" groups="fleet.fleet_group_manager"/>
+
+
+</odoo>

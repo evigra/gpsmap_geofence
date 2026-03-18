@@ -1,0 +1,27 @@
+<?xml version="1.0" ?>
+<odoo>
+        <record id="rule_gps_geofence_user" model="ir.rule">
+            <field name="name">The user has all the rights to the geofence</field>
+            <field name="model_id" ref="model_gps_geofence"/>
+            <field name="groups" eval="[(4, ref('fleet.fleet_group_user'))]"/>
+            <!-- 
+            <field name="domain_force">[('manager_id','=',user.id)]</field>
+            -->
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_unlink" eval="False"/>            
+        </record>        
+        <record id="rule_gps_geofence_manager" model="ir.rule">
+            <field name="name">The manager has all the rights to the geofence</field>
+            <field name="model_id" ref="model_gps_geofence"/>
+            <field name="groups" eval="[(4, ref('fleet.fleet_group_manager'))]"/>
+            <field name="domain_force">[]</field>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_unlink" eval="True"/>            
+        </record>        
+
+
+</odoo>

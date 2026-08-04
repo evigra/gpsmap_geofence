@@ -1425,17 +1425,11 @@ export class GeofenceFormController
          * No existe polígono
          */
 
-        if (
-            !value ||
-            typeof value !== "string"
-        ) {
-
+        if ( !value ||  typeof value !== "string" ) {
             console.log(
                 "GPSMAP_GEOFENCE: Registro sin polígono"
             );
-
             return;
-
         }
 
 
@@ -1449,31 +1443,18 @@ export class GeofenceFormController
                 .map(
                     (item) => {
 
-                        /*
-                         * Cada elemento es:
-                         *
-                         * lng lat
-                         */
-
                         const parts =
                             item
                                 .trim()
                                 .split(/\s+/);
 
-
-                        if (
-                            parts.length !== 2
-                        ) {
-
+                        if ( parts.length !== 2) {
                             console.warn(
                                 "GPSMAP_GEOFENCE: Coordenada inválida:",
                                 item
                             );
-
                             return null;
-
                         }
-
 
                         /*
                          * PRIMERO LONGITUD
@@ -1499,31 +1480,19 @@ export class GeofenceFormController
                          * Validar
                          */
 
-                        if (
-                            Number.isNaN(lng) ||
-                            Number.isNaN(lat)
-                        ) {
-
+                        if ( Number.isNaN(lng) || Number.isNaN(lat) ) {
                             console.warn(
                                 "GPSMAP_GEOFENCE: Coordenada no numérica:",
                                 item
                             );
-
                             return null;
-
                         }
 
 
                         return {
-
-                            lng:
-                                lng,
-
-                            lat:
-                                lat
-
+                            lng: lng,
+                            lat:  lat
                         };
-
                     }
                 )
                 .filter(
@@ -1536,24 +1505,17 @@ export class GeofenceFormController
          * Mínimo 3 puntos
          */
 
-        if (
-            coordinates.length < 3
-        ) {
-
+        if (   coordinates.length < 3   ) {
             console.warn(
                 "GPSMAP_GEOFENCE: Menos de 3 puntos"
             );
-
             return;
-
         }
-
 
         console.log(
             "GPSMAP_GEOFENCE: COORDENADAS:",
             coordinates
         );
-
 
         /*
          * Si ya existe un polígono,
@@ -1561,11 +1523,8 @@ export class GeofenceFormController
          */
 
         if (this.polygon) {
-
             this._removePolygon();
-
         }
-
 
         /*
          * ========================================================
@@ -1575,42 +1534,15 @@ export class GeofenceFormController
 
         this.polygon =
             new google.maps.Polygon({
-
-                paths:
-                    coordinates,
-
-
-                map:
-                    this.map,
-
-
-                strokeColor:
-                    "#1565C0",
-
-
-                strokeOpacity:
-                    1,
-
-
-                strokeWeight:
-                    2,
-
-
-                fillColor:
-                    "#2196F3",
-
-
-                fillOpacity:
-                    0.35,
-
-
-                editable:
-                    true,
-
-
-                draggable:
-                    false
-
+                paths: coordinates,
+                map: this.map,
+                strokeColor:  "#1565C0",
+                strokeOpacity: 1,
+                strokeWeight: 2,
+                fillColor:   "#2196F3",
+                fillOpacity: 0.35,
+                editable: true,
+                draggable: false
             });
 
 
@@ -1620,34 +1552,23 @@ export class GeofenceFormController
          * ========================================================
          */
 
-        const bounds =
-            new google.maps.LatLngBounds();
-
-
+        const bounds = new google.maps.LatLngBounds();
         coordinates.forEach(
             (point) => {
-
                 bounds.extend(
-
                     new google.maps.LatLng(
                         point.lat,
                         point.lng
                     )
-
                 );
-
             }
         );
 
 
-        if (
-            !bounds.isEmpty()
-        ) {
-
+        if (   !bounds.isEmpty()   ) {
             this.map.fitBounds(
                 bounds
             );
-
         }
 
 
@@ -1675,18 +1596,12 @@ export class GeofenceFormController
 
         this.polygonListeners.forEach(
             (listener) => {
-
                 google.maps.event.removeListener(
                     listener
                 );
-
             }
         );
-
-
-        this.polygonListeners =
-            [];
-
+        this.polygonListeners = [];
     }
 
 
@@ -1702,36 +1617,23 @@ export class GeofenceFormController
             "GPSMAP_GEOFENCE: Destruyendo Geofence"
         );
 
-
         /*
          * Eventos del mapa
          */
 
-        if (
-            this.mapClickListener
-        ) {
-
+        if (   this.mapClickListener   ) {
             google.maps.event.removeListener(
                 this.mapClickListener
             );
-
-            this.mapClickListener =
-                null;
-
+            this.mapClickListener = null;
         }
 
 
-        if (
-            this.mapDblClickListener
-        ) {
-
+        if ( this.mapDblClickListener  ) {
             google.maps.event.removeListener(
                 this.mapDblClickListener
             );
-
-            this.mapDblClickListener =
-                null;
-
+            this.mapDblClickListener =  null;
         }
 
 
@@ -1746,15 +1648,9 @@ export class GeofenceFormController
          * ResizeObserver
          */
 
-        if (
-            this.mapResizeObserver
-        ) {
-
+        if ( this.mapResizeObserver  ) {
             this.mapResizeObserver.disconnect();
-
-            this.mapResizeObserver =
-                null;
-
+            this.mapResizeObserver = null;
         }
 
 
@@ -1763,51 +1659,27 @@ export class GeofenceFormController
          */
 
         if (this.polygon) {
-
-            this.polygon.setMap(
-                null
-            );
-
-            this.polygon =
-                null;
-
+            this.polygon.setMap(   null  );
+            this.polygon =  null;
         }
-
 
         /*
          * Polígono temporal
          */
 
         if (this.tempPolygon) {
-
-            this.tempPolygon.setMap(
-                null
-            );
-
-            this.tempPolygon =
-                null;
-
+            this.tempPolygon.setMap(   null   );
+            this.tempPolygon =   null;
         }
-
 
         /*
          * Limpiar referencias
          */
 
-        this.map =
-            null;
-
-
-        this.drawButton =
-            null;
-
-
-        this.mapInitialized =
-            false;
-
-
-        this.currentRecordId =
-            null;
+        this.map =  null;
+        this.drawButton =  null;
+        this.mapInitialized =  false;
+        this.currentRecordId = null;
 
     }
 
@@ -1823,11 +1695,8 @@ export class GeofenceFormController
 registry.category("views").add(
     "geofence_form",
     {
-
         ...formView,
-
         Controller:
             GeofenceFormController
-
     }
 );

@@ -27,8 +27,8 @@ Main features
     ],
     'data': [
         # DATA
-        'security/security.xml',
-        'security/ir.model.access.csv',
+        #'security/security.xml',
+        #'security/ir.model.access.csv',
 
         # VIEW
         'views/menuitem.xml',
@@ -48,5 +48,5 @@ Main features
 
     #'demo': ['data/demo.xml'],
     'installable': True,
-    'application': True,
+    'application': False,
 }

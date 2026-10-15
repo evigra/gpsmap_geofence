@@ -69,9 +69,6 @@ function loadGoogleMaps(apiKey) {
                 script.onload =
                     () => {
 
-                        console.log(
-                            "GPSMAP_GEOFENCE: Google Maps cargado"
-                        );
 
                         resolve();
 
@@ -123,10 +120,6 @@ export class GeofenceFormController
 
         super.setup();
 
-
-        console.log(
-            "GPSMAP_GEOFENCE: Controller iniciado"
-        );
 
 
         /*
@@ -182,10 +175,6 @@ export class GeofenceFormController
 
         onMounted(
             async () => {
-
-                console.log(
-                    "GPSMAP_GEOFENCE: onMounted"
-                );
 
 
                 await this._initMap();
@@ -249,21 +238,12 @@ export class GeofenceFormController
 
     async _initMap() {
 
-        console.log(
-            "GPSMAP_GEOFENCE: inicializando mapa"
-        );
-
 
         const mapDiv =
             document.getElementById(
                 "geofence_map"
             );
 
-
-        console.log(
-            "GPSMAP_GEOFENCE: geofence_map =",
-            mapDiv
-        );
 
 
         if (!mapDiv) {
@@ -297,11 +277,6 @@ export class GeofenceFormController
 
             await loadGoogleMaps(
                 "TU_API_KEY"
-            );
-
-
-            console.log(
-                "GPSMAP_GEOFENCE: Google Maps disponible"
             );
 
 
@@ -350,10 +325,6 @@ export class GeofenceFormController
             this.mapInitialized =
                 true;
 
-
-            console.log(
-                "GPSMAP_GEOFENCE: Mapa creado"
-            );
 
 
             /*
@@ -478,14 +449,6 @@ export class GeofenceFormController
                             entry.contentRect.height;
 
 
-                        console.log(
-                            "GPSMAP_GEOFENCE: tamaño mapa:",
-                            width,
-                            "x",
-                            height
-                        );
-
-
                         /*
                          * Si el mapa vuelve a ser visible
                          */
@@ -580,10 +543,7 @@ export class GeofenceFormController
                 }
 
 
-                console.log(
-                    "GPSMAP_GEOFENCE: recalculando mapa"
-                );
-
+                
 
                 /*
                  * Forzar recálculo de Google Maps
@@ -671,11 +631,6 @@ export class GeofenceFormController
             this.model.root.resId;
 
 
-        console.log(
-            "GPSMAP_GEOFENCE: ID actual:",
-            recordId
-        );
-
 
         /*
          * No cambió el registro
@@ -690,13 +645,6 @@ export class GeofenceFormController
 
         }
 
-
-        console.log(
-            "GPSMAP_GEOFENCE: CAMBIO DE REGISTRO:",
-            this.currentRecordId,
-            "=>",
-            recordId
-        );
 
 
         /*
@@ -883,10 +831,6 @@ export class GeofenceFormController
 
     _startDrawing() {
 
-        console.log(
-            "GPSMAP_GEOFENCE: Iniciando dibujo"
-        );
-
 
         /*
          * Eliminar polígono existente
@@ -1007,13 +951,6 @@ export class GeofenceFormController
         });
 
 
-        console.log(
-            "GPSMAP_GEOFENCE: Punto:",
-            latLng.lat(),
-            latLng.lng()
-        );
-
-
         /*
          * Crear polígono temporal
          */
@@ -1099,11 +1036,6 @@ export class GeofenceFormController
         }
 
 
-        console.log(
-            "GPSMAP_GEOFENCE: Finalizando polígono"
-        );
-
-
         /*
          * Eliminar temporal
          */
@@ -1126,42 +1058,15 @@ export class GeofenceFormController
 
         this.polygon =
             new google.maps.Polygon({
-
-                map:
-                    this.map,
-
-
-                paths:
-                    this.points,
-
-
-                strokeColor:
-                    "#1565C0",
-
-
-                strokeOpacity:
-                    1,
-
-
-                strokeWeight:
-                    2,
-
-
-                fillColor:
-                    "#2196F3",
-
-
-                fillOpacity:
-                    0.35,
-
-
-                editable:
-                    true,
-
-
-                draggable:
-                    false
-
+                map: this.map,
+                paths: this.points,
+                strokeColor: "#1565C0",
+                strokeOpacity: 1,
+                strokeWeight:2,
+                fillColor: "#2196F3",
+                fillOpacity: 0.35,
+                editable:true,
+                draggable:false
             });
 
 
@@ -1298,12 +1203,6 @@ export class GeofenceFormController
             coordinates.join(",");
 
 
-        console.log(
-            "GPSMAP_GEOFENCE: GUARDANDO:",
-            value
-        );
-
-
         /*
          * Guardar en Odoo
          */
@@ -1413,29 +1312,9 @@ export class GeofenceFormController
         const value =
             this.model.root.data
                 .polygon_coords;
-
-
-        console.log(
-            "GPSMAP_GEOFENCE: LEYENDO polygon_coords:",
-            value
-        );
-
-
-        /*
-         * No existe polígono
-         */
-
         if ( !value ||  typeof value !== "string" ) {
-            console.log(
-                "GPSMAP_GEOFENCE: Registro sin polígono"
-            );
             return;
         }
-
-
-        /*
-         * Separar puntos por coma
-         */
 
         const coordinates =
             value
@@ -1512,10 +1391,6 @@ export class GeofenceFormController
             return;
         }
 
-        console.log(
-            "GPSMAP_GEOFENCE: COORDENADAS:",
-            coordinates
-        );
 
         /*
          * Si ya existe un polígono,
@@ -1579,9 +1454,6 @@ export class GeofenceFormController
         this._listenPolygon();
 
 
-        console.log(
-            "GPSMAP_GEOFENCE: Polígono cargado correctamente"
-        );
 
     }
 
@@ -1612,10 +1484,6 @@ export class GeofenceFormController
      */
 
     _destroyMap() {
-
-        console.log(
-            "GPSMAP_GEOFENCE: Destruyendo Geofence"
-        );
 
         /*
          * Eventos del mapa
